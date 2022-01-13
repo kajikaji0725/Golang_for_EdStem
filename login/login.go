@@ -1,16 +1,21 @@
 package login
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/cookiejar"
 	"time"
+
+	"github.com/kajikaji0725/Golang_for_Edstem/model"
 )
 
 type Client struct {
 	client *http.Client
 	jar    *cookiejar.Jar
+	token  string
 }
 
 func NewClient() *Client {
@@ -31,16 +36,11 @@ func NewClient() *Client {
 }
 
 func (c *Client) login(email, password string) error {
+	jsonclient := model.JsonClient{Email: email, Password: password}
 
-	req, err := http.NewRequest(http.MethodGet, "https://edstem.org/au/login?redirect=%2Fau%2Fdashboard&auth=1", nil)
-	if err != nil {
-		return err
-	}
+	jsonjson, _ := json.Marshal(jsonclient)
 
-	req.Header.Set("email", email)
-	req.Header.Set("password", password)
-
-	resp, err := c.client.Do(req)
+	resp, err := c.client.Post("https://edstem.org/api/token", "application/json", bytes.NewBuffer(jsonjson))
 	if err != nil {
 		return err
 	}
@@ -55,7 +55,8 @@ func (c *Client) login(email, password string) error {
 		return err
 	}
 
-	fmt.Println(string(res))
+	c.token = string(res)
+	fmt.Println(c.token)
 
 	return nil
 }

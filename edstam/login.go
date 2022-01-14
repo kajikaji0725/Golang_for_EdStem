@@ -1,12 +1,11 @@
-package login
+package edstem
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"net/http/cookiejar"
+	"strconv"
 	"time"
 
 	"github.com/kajikaji0725/Golang_for_Edstem/model"
@@ -36,27 +35,31 @@ func NewClient() *Client {
 }
 
 func (c *Client) login(email, password string) error {
-	jsonclient := model.JsonClient{Email: email, Password: password}
-
-	jsonjson, _ := json.Marshal(jsonclient)
-
-	resp, err := c.client.Post("https://edstem.org/api/token", "application/json", bytes.NewBuffer(jsonjson))
+	var err error
+	c.token, err = c.GetToken(email, password)
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("Response status was %d(except %d)", resp.StatusCode, http.StatusOK)
-	}
-
-	defer resp.Body.Close()
-
-	res, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-
-	c.token = string(res)
 	fmt.Println(c.token)
 
+	res, err := c.NewRequest(http.MethodGet, "https://edstem.org/api/user")
+	if err != nil {
+		return err
+	}
+	courses := model.Courses{}
+	err = json.Unmarshal(res, &courses)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(courses.Courses[0].Course.Id)
+
+	res, err = c.NewRequest(http.MethodGet, "https://edstem.org/api/courses/"+strconv.Itoa(courses.Courses[0].Course.Id)+"/lessons")
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(string(res))
 	return nil
 }

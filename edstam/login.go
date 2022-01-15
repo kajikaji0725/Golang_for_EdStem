@@ -60,6 +60,12 @@ func (c *Client) login(email, password string) error {
 		return err
 	}
 
-	fmt.Println(string(res))
+
+	lessons := model.Lessons{}
+	err = json.Unmarshal(res, &lessons)
+	if err != nil {
+		return err
+	}
+	fmt.Println(lessons)
 	return nil
 }

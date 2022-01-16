@@ -1,6 +1,7 @@
 package edstem
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -27,8 +28,9 @@ func TestHoge(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = c.JsonParse()
+	announcement, err := c.JsonParse()
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(announcement)
 }

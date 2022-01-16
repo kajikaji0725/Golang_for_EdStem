@@ -33,15 +33,17 @@ type Lessons struct {
 }
 
 type Lesson struct {
-	Course_id                                int       `json:"course_id"`
-	Created_at                               time.Time `json:"created_at"`
-	Id                                       int       `json:"id"`
-	Last_viewed_slide_id                     int       `json:"last_viewed_slide_id"`
-	Number                                   int       `json:"number"`
-	Status                                   string    `json:"status"`
-	Title                                    string    `json:"title"`
-	User_id                                  int       `json:"user_id"`
+	Course_id            int       `json:"course_id"`
+	Created_at           time.Time `json:"created_at"`
+	Id                   int       `json:"id"`
+	Last_viewed_slide_id int       `json:"last_viewed_slide_id"`
+	Number               int       `json:"number"`
+	Status               string    `json:"status"`
+	Title                string    `json:"title"`
+	User_id              int       `json:"user_id"`
 }
 
-
-// type Announce
+type Announcement struct {
+	Title   string
+	Dedline *time.Time
+}

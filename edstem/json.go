@@ -44,7 +44,7 @@ func (c *Client) JsonParse() ([]model.Announcement, error) {
 			if strings.EqualFold(string(res), model.ErNotfound) || strings.EqualFold(string(res), model.ErQuize) {
 				continue
 			} else {
-				announcement = append(announcement, model.Announcement{Title: les.Title, Dedline: nil})
+				announcement = append(announcement, model.Announcement{Title: les.Title, Deadline: nil})
 			}
 		}
 	}

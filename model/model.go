@@ -44,6 +44,6 @@ type Lesson struct {
 }
 
 type Announcement struct {
-	Title   string
-	Dedline *time.Time
+	Title    string
+	Deadline *time.Time
 }

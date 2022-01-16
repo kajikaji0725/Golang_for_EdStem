@@ -25,6 +25,10 @@ func TestHoge(t *testing.T) {
 	c := NewClient()
 	err := c.login(email, password)
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
+	}
+	err = c.JsonParse()
+	if err != nil {
+		log.Fatal(err)
 	}
 }

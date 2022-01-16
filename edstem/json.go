@@ -37,7 +37,7 @@ func (c *Client) JsonParse() ([]model.Announcement, error) {
 
 	for _, les := range lessons.Lessons {
 		if strings.Compare(les.Status, "attempted") == 0 {
-			res, err = c.NewRequest(http.MethodGet, "https://edstem.org/api/lessons/slides/"+strconv.Itoa(les.Last_viewed_slide_id)+"/questions")
+			res, err = c.NewRequest(http.MethodGet, "https://edstem.org/api/lessons/slides/"+strconv.Itoa(les.LastViewedSlideId)+"/questions")
 			if err != nil {
 				return nil, err
 			}

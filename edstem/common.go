@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (c *Client) NewRequest(method, url string) ([]byte, error) {
+func (c *Client) GetJson(method, url string) ([]byte, error) {
 	req, _ := http.NewRequest(method, url, nil)
 	req.Header.Set("x-token", c.token)
 	resp, err := c.client.Do(req)

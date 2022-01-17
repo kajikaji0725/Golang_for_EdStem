@@ -22,9 +22,9 @@ func init() {
 	email = os.Getenv("email")
 	password = os.Getenv("password")
 }
-func TestHoge(t *testing.T) {
+func TestEdstam(t *testing.T) {
 	c := NewClient()
-	err := c.login(email, password)
+	err := c.Login(email, password)
 	if err != nil {
 		log.Fatal(err)
 	}

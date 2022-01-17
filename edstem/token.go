@@ -10,7 +10,7 @@ import (
 	"github.com/kajikaji0725/Golang_for_Edstem/model"
 )
 
-func (c *Client) GetToken(email, password string) (string, error) {
+func (c *Client) getToken(email, password string) (string, error) {
 	jsonclient := model.JsonClient{Email: email, Password: password}
 
 	jsonjson, _ := json.Marshal(jsonclient)

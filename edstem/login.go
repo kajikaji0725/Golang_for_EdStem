@@ -29,9 +29,9 @@ func NewClient() *Client {
 	}
 }
 
-func (c *Client) login(email, password string) error {
+func (c *Client) Login(email, password string) error {
 	var err error
-	c.token, err = c.GetToken(email, password)
+	c.token, err = c.getToken(email, password)
 	if err != nil {
 		return err
 	}
